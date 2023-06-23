@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tiere</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="scripts.js"></script>
+</head>
+<body>
+  <h1>Tiere</h1>
+  
+  <table id="tier">
+    <tr>
+      <th>Tiere ID</th>
+      <th>Bezeichnung</th>
+      <th>Geburtsdatum</th>
+      <th>Geschlecht</th>
+      <th>Größe</th>
+      <th>Gewicht</th>
+      <th>Kategorie ID</th>
+      <th>Gehege Nr</th>
+      <th>Actions</th>
+    </tr>
+    <% tiere.forEach((tier) => { %>
+      <tr>
+        <td><%= tier.tiere_id %></td>
+        <td><%= tier.bezeichnung %></td>
+        <td><%= tier.geburtsdatum %></td>
+        <td><%= tier.geschlecht %></td>
+        <td><%= tier.größe %></td>
+        <td><%= tier.gewicht %></td>
+        <td><%= tier.kategorie_id %></td>
+        <td><%= tier.gehege_nr %></td>
+        <td>
+          <form action="/tiere/delete/<%= tier.tiere_id %>" method="POST">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }); %>
+  </table>
+  <button id = "d"><a href="/tiere/add">Add Tier</a> </button>
+  <button id="hideTableButton">Hide Table</button>
+  <button id="show"><a href="/tiere"></a>  Show Tabel Tiere</button>
+</body>
+</html>
