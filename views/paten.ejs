@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Paten</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="scripts.js"></script>
+</head>
+<body>
+  <h1>Paten</h1>
+  <div class="container">
+  <table id="tier">
+    <tr>
+      <th>  paten_id</th>
+      <th>datum</th>
+      <th>Größe</th>
+      <th>betrag</th>
+      <th>benutzer_id</th>
+       
+       
+    </tr>
+    <% paten.forEach((paten) => { %>
+      <tr>
+        <td><%= paten.paten_id %></td>
+        <td id = "s"><%= formatDate(paten.datum) %></td>
+        <td><%= paten.betrag %></td>
+        <td><%= paten.benutzer_id %></td>
+         
+         
+        <td>
+          <form action="/paten/delete/<%= paten.paten_id %>" method="POST">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }); %>
+  </table>
+  <button id = "d"><a href="/paten/add">Add paten</a> </button></br>
+  
+</div>
+ 
+</body>
+</html>

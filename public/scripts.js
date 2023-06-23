@@ -7,13 +7,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const s = document.getElementById('s');
     hideTableButton.addEventListener('click', () => {
         table.style.display = 'none';
-        s.style.display= 'block';
+         
          
     });
     showTableButton.addEventListener('click', () => {
         table.style.display = 'block';
+         
 
     });
 
 
   });
+
+
+  function formatDate(date) {
+    // Date formatting logic here
+    // ...
+    return formattedDate;
+  }
+  
+  module.exports = {
+    formatDate,
+  };
+ 

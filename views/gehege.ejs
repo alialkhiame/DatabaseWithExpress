@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Gehege</h1>
-  
+  <div class="container">
   <table id="tier">
     <tr>
       <th>Gehege Numer</th>
@@ -18,7 +18,7 @@
       <th>gefahrenklasse</th>
        
     </tr>
-    <% tiere.forEach((tier) => { %>
+    <% gehege.forEach((gehege) => { %>
       <tr>
         <td><%= gehege.gehege_nr %></td>
         <td><%= gehege.gehege_name %></td>
@@ -28,15 +28,15 @@
         <td><%= gehege.gefahrenklasse %></td>
          
         <td>
-          <form action="/tiere/delete/<%= tier.tiere_id %>" method="POST">
+          <form action="/gehege/delete/<%= gehege.gehege_nr %>" method="POST">
             <button type="submit">Delete</button>
           </form>
         </td>
       </tr>
     <% }); %>
   </table>
-  <button id = "d"><a href="/gehege/add">Add Tier</a> </button>
-  <button id="hideTableButton">Hide Table</button>
-  <button id="show"><a href="/gehege"></a>  Show Tabel Tiere</button>
+</div>
+  <button id = "d"><a href="/gehege/add">Add gehege</a> </button></body></br>
+  
 </body>
 </html>

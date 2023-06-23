@@ -1,7 +1,9 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
-
+const router = express.Router();
+const { formatDate } = require('./public/DataReform');
+const { changeColor } = require('./public/DataReform');
 const app = express();
 const port = 3000;
 
@@ -35,6 +37,50 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+
+app.get('/gehege/add', (req, res) => {
+  const sql = 'SELECT COLUMN_NAME FROM information_schema.columns WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?';
+  const values = ['my_first_zoo', 'gehege'];
+
+  connection.query(sql, values, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    const tableColumns = result.map((row) => row.COLUMN_NAME);
+   
+    res.render('addGehege', { tableColumns });
+  });
+});
+
+
+app.get('/paten/add', (req, res) => {
+  const sql = 'SELECT COLUMN_NAME FROM information_schema.columns WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?';
+  const values = ['my_first_zoo', 'paten'];
+
+  connection.query(sql, values, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    const tableColumns = result.map((row) => row.COLUMN_NAME);
+    res.render('addGehege', { tableColumns });
+  });
+});
+
+app.get('/paten', (req, res) => {
+  const sql = 'SELECT * from paten';
+  const values = ['my_first_zoo', 'paten'];
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    res.render('paten', {  paten: result ,formatDate: formatDate});
+  });
+});
+
 // Add route for /tiere/add
 app.get('/tiere/add', (req, res) => {
   res.render('addTier', { successMessage: successMessage });
@@ -46,7 +92,7 @@ app.get('/tiere', (req, res) => {
 
   connection.query(sql, (err, result) => {
     if (err) throw err;
-    res.render('tiere', { tiere: result });
+    res.render('tiere', { tiere: result ,formatDate: formatDate,changeColor:changeColor});
   });
 });
 
@@ -55,7 +101,7 @@ app.get('/gehege', (req, res) => {
   
     connection.query(sql, (err, result) => {
       if (err) throw err;
-      res.render('tiere', { tiere: result });
+      res.render('gehege', {  gehege: result ,formatDate: formatDate});
     });
   });
 

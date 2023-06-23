@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Tiere</h1>
-  
+  <div class="container">
   <table id="tier">
     <tr>
       <th>Tiere ID</th>
@@ -24,7 +24,7 @@
       <tr>
         <td><%= tier.tiere_id %></td>
         <td><%= tier.bezeichnung %></td>
-        <td><%= tier.geburtsdatum %></td>
+        <td><%= formatDate(tier.geburtsdatum) %></td>
         <td><%= tier.geschlecht %></td>
         <td><%= tier.größe %></td>
         <td><%= tier.gewicht %></td>
@@ -38,8 +38,8 @@
       </tr>
     <% }); %>
   </table>
-  <button id = "d"><a href="/tiere/add">Add Tier</a> </button>
-  <button id="hideTableButton">Hide Table</button>
-  <button id="show"><a href="/tiere"></a>  Show Tabel Tiere</button>
+  </div>
+  <button id = "d"><span><a href="/tiere/add">Add Tier</a></span> </button> </br>
+   
 </body>
 </html>

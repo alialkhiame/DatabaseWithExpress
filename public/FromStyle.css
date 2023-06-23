@@ -1,0 +1,39 @@
+.form-style-4 {
+    background: #242b3d;
+    padding: 50px 30px;
+}
+.form-style-4 .fl-input-group input,
+.form-style-4 .fl-input-group textarea {
+    border-radius: 3px;
+    padding: 15px 12px;
+    height: auto;
+    border-top: 1px solid #222;
+    border-left: 1px solid #222;
+    border-right: 1px solid #666;
+    border-bottom: 1px solid #666;
+    background-color: #2d3343;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #fff;
+}
+
+.form-style-4 .fl-input-group input:focus,
+.form-style-4 .fl-input-group textarea:focus {
+    border: 2px solid #e44a49;
+    background-color: #2d3343;
+}
+
+.form-style-4 .fl-input-group input::-webkit-input-placeholder {
+    color: #fff;
+}
+.form-style-4 .fl-input-group textarea::-webkit-input-placeholder {
+    color: #fff;
+}
+.form-style-4 .fl-input-group {
+    margin-bottom: 20px;
+}
+.form-style-4 label {
+    display: none;
+}
+ 
