@@ -1,15 +1,15 @@
 <!-- addTier.ejs -->
 
 <head>
-    <link rel="stylesheet" href="/FromStyle.css">
+    <!--<link rel="stylesheet" href="/FromStyle.css">-->
 </head>
 
-<h1 style="font-family:'Times New Roman', Times, serif; font-style: italic; color:blueviolet;">Neue Gehege</h1>
+<h1 style="font-family:'Times New Roman', Times, serif; font-style: italic; color:blueviolet;">Neue Patenschaft</h1>
 
  
 
  
-  <form class="form-style-4" action="/paten" method="POST">
+  <form class="form-style-4" action="/paten/add" method="POST">
     <% tableColumns.forEach(function(column) { %>
       
       <input style="margin-bottom: 10px;"type="text" id="<%= column.name %>" name="<%= column.name %>" placeholder ="<%= column %>" required></br>

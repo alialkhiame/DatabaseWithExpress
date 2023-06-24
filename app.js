@@ -38,6 +38,31 @@ app.get('/', (req, res) => {
 });
 
 
+app.get('/gehege', (req, res) => {
+  const sql = 'SELECT * FROM gehege';
+
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    res.render('gehege', {  gehege: result ,formatDate: formatDate});
+  });
+});
+
+ 
+
+app.post('/gehege/add', (req, res) => {
+  const { gehege_nr, gehege_name, größe, kapazität, bezeichnung, gefahrenklasse } = req.body;
+
+  // Perform validation or any additional processing
+  const sql = 'INSERT INTO gehege (gehege_nr, gehege_name, größe,  kapazität, bezeichnung, gefahrenklasse) VALUES (?, ?, ?, ?, ?, ?)';
+const values = [gehege_nr, gehege_name, größe,  kapazität, bezeichnung, gefahrenklasse];
+
+  connection.query(sql, values, (err, result) => {
+    if (err) throw err;
+    successMessage = 'Tier successfully added';
+    res.render('addGehege', { successMessage: successMessage });
+  });
+});
+
 app.get('/gehege/add', (req, res) => {
   const sql = 'SELECT COLUMN_NAME FROM information_schema.columns WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?';
   const values = ['my_first_zoo', 'gehege'];
@@ -50,7 +75,6 @@ app.get('/gehege/add', (req, res) => {
     }
 
     const tableColumns = result.map((row) => row.COLUMN_NAME);
-   
     res.render('addGehege', { tableColumns });
   });
 });
@@ -68,10 +92,10 @@ app.get('/paten/add', (req, res) => {
     }
 
     const tableColumns = result.map((row) => row.COLUMN_NAME);
-    res.render('addGehege', { tableColumns });
+    res.render('addPaten', { tableColumns });
   });
 });
-
+ 
 app.get('/paten', (req, res) => {
   const sql = 'SELECT * from paten';
   const values = ['my_first_zoo', 'paten'];
@@ -81,10 +105,8 @@ app.get('/paten', (req, res) => {
   });
 });
 
-// Add route for /tiere/add
-app.get('/tiere/add', (req, res) => {
-  res.render('addTier', { successMessage: successMessage });
-});
+ 
+ 
 
 // Display all records from the "tiere" table
 app.get('/tiere', (req, res) => {
@@ -92,23 +114,16 @@ app.get('/tiere', (req, res) => {
 
   connection.query(sql, (err, result) => {
     if (err) throw err;
-    res.render('tiere', { tiere: result ,formatDate: formatDate,changeColor:changeColor});
+    res.render('tiere', { tiere: result ,formatDate: formatDate});
   });
 });
 
-app.get('/gehege', (req, res) => {
-    const sql = 'SELECT * FROM gehege';
-  
-    connection.query(sql, (err, result) => {
-      if (err) throw err;
-      res.render('gehege', {  gehege: result ,formatDate: formatDate});
-    });
-  });
+
 
   
 
 // Add a new record to the "tiere" table
-app.post('/tiere', (req, res) => {
+app.post('/tiere/add', (req, res) => {
   const { bezeichnung, geburtsdatum, geschlecht, größe, gewicht, kategorie_id, gehege_nr } = req.body;
 
   // Perform validation or any additional processing
@@ -122,21 +137,12 @@ app.post('/tiere', (req, res) => {
   });
 });
 
+// Add a new record to the "gehege" table
 
-//Add a new record to the "Gehege Tabel"
-app.post('/gehege', (req, res) => {
-    const { bezeichnung, geburtsdatum, geschlecht, größe, gewicht, kategorie_id, gehege_nr } = req.body;
-  
-    // Perform validation or any additional processing
-    const sql = 'INSERT INTO tiere (bezeichnung, geburtsdatum, geschlecht, größe, gewicht, kategorie_id, gehege_nr) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    const values = [bezeichnung, geburtsdatum, geschlecht, größe, gewicht, kategorie_id, gehege_nr];
-  
-    connection.query(sql, values, (err, result) => {
-      if (err) throw err;
-      successMessage = 'Tier successfully added';
-      res.render('addTier', { successMessage: successMessage });
-    });
-  });
+
+
+
+ 
 
 
 

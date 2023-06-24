@@ -1,20 +1,21 @@
 <!-- addTier.ejs -->
 
 <head>
-    <link rel="stylesheet" href="/FromStyle.css">
+ 
 </head>
 
 <h1 style="font-family:'Times New Roman', Times, serif; font-style: italic; color:blueviolet;">Neue Gehege</h1>
 
  
 
- 
+<div class="table-container">
   <form class="form-style-4" action="/gehege" method="POST">
     <% tableColumns.forEach(function(column) { %>
       
-      <input style="margin-bottom: 10px;"type="text" id="<%= column.name %>" name="<%= column.name %>" placeholder ="<%= column %>" required></br>
+      <input style="margin-bottom: 10px;"  id="<%=column%>" name="<%= column %>" placeholder ="<%= column %>" required></br>
     <% }); %>
 
     <button type="submit">Gehege erstellen</button>
   </form>
+</div>
  
