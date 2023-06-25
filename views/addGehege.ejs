@@ -8,11 +8,12 @@
 
  
 
-<div class="table-container">
-  <form class="form-style-4" action="/gehege" method="POST">
+ 
+  
+  <form class="form-style-4" action="/gehege/add" method="POST">
     <% tableColumns.forEach(function(column) { %>
       
-      <input style="margin-bottom: 10px;"  id="<%=column%>" name="<%= column %>" placeholder ="<%= column %>" required></br>
+      <input style="margin-bottom: 10px;"  id="<%= column %>" name="<%= column %>" placeholder ="<%= column %>" required></br>
     <% }); %>
 
     <button type="submit">Gehege erstellen</button>

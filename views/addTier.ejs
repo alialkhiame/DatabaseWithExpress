@@ -6,38 +6,15 @@
     
 </head>
 <h1>Add Tier</h1>
-<%if(successMessage){%>
-    <div class="success-message">
-      <%= successMessage %>
-    </div>
-  <%}%>
+ 
 
   <div class="table-container">
 <form action="/tiere/add" method="POST" >
-  <label for="bezeichnung">Bezeichnung:</label>
-  <input type="text" id="bezeichnung" name="bezeichnung" required>
-
-  <label for="geburtsdatum">Geburtsdatum:</label>
-  <input type="date" id="geburtsdatum" name="geburtsdatum" required>
-
-  <label for="geschlecht">Geschlecht:</label>
-  <select id="geschlecht" name="geschlecht" required>
-    <option value="weiblich">Weiblich</option>
-    <option value="männlich">Männlich</option>
-  </select>
-
-  <label for="größe">Größe:</label>
-  <input type="number" id="größe" name="größe">
-
-  <label for="gewicht">Gewicht:</label>
-  <input type="number" id="gewicht" name="gewicht">
-
-  <label for="kategorie_id">Kategorie ID:</label>
-  <input type="number" id="kategorie_id" name="kategorie_id" required>
-
-  <label for="gehege_nr">Gehege Nr:</label>
-  <input type="number" id="gehege_nr" name="gehege_nr" required>
-
+  
+    <% tableColumns.forEach(function(column) { %>
+      
+      <input style="margin-bottom: 10px;"  id="<%= column %>" name="<%= column %>" placeholder ="<%= column %>" required></br>
+    <% }); %>
   <button type="submit">Add Tier</button>
 </div>
 </form>
