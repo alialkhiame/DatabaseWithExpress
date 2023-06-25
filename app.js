@@ -40,18 +40,49 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-
 app.get('/gehege', (req, res) => {
   const sql = 'SELECT * FROM gehege';
 
   connection.query(sql, (err, result) => {
-    if (err) {
-      res.render('error',{err});
-      return;
-    }
-    res.render('gehege', {  gehege: result ,formatDate: formatDate});
+    if (err) throw err;
+
+    // Extract data for chart
+    const gehegeData = result.map((row) => ({
+      gehege_name: row.gehege_name,
+      kapazität: row.kapazität,
+    }));
+
+    // Prepare chart configuration
+    const chartConfig = {
+      type: 'bar',
+      data: {
+        labels: gehegeData.map((data) => data.gehege_name),
+        datasets: [{
+          label: 'Capacity',
+          data: gehegeData.map((data) => data.kapazität),
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1,
+        }],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Capacity',
+            },
+          },
+        },
+      },
+    };
+
+    res.render('gehege', { gehege: result, chartConfig, gehegeData });
   });
 });
+
 
 app.post('/gehege', (req, res) => {
   

@@ -2,41 +2,76 @@
 <html>
 <head>
   <title>Tiere</title>
- 
-  <script src="scripts.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <h1>Gehege</h1>
+
   <div class="container">
-  <table id="tier">
-    <tr>
-      <th>Gehege Numer</th>
-      <th>Name</th>
-      <th>Größe</th>
-      <th>kapazität</th>
-      <th>Bezeichnung</th>
-      <th>gefahrenklasse</th>
-       
-    </tr>
-    <% gehege.forEach((gehege) => { %>
+    <table id="tier">
       <tr>
-        <td><%= gehege.gehege_nr %></td>
-        <td><%= gehege.gehege_name %></td>
-        <td><%= gehege.größe %></td>
-        <td><%= gehege.kapazität %></td>
-        <td><%= gehege.bezeichnung %></td>
-        <td><%= gehege.gefahrenklasse %></td>
-         
-        <td>
-          <form action="/gehege/delete/<%= gehege.gehege_nr %>" method="POST">
-            <button type="submit">Delete</button>
-          </form>
-        </td>
+        <th>Gehege Numer</th>
+        <th>Name</th>
+        <th>Größe</th>
+        <th>kapazität</th>
+        <th>Bezeichnung</th>
+        <th>gefahrenklasse</th>
       </tr>
-    <% }); %>
-  </table>
+      <% gehege.forEach((gehege) => { %>
+        <tr>
+          <td><%= gehege.gehege_nr %></td>
+          <td><%= gehege.gehege_name %></td>
+          <td><%= gehege.größe %></td>
+          <td><%= gehege.kapazität %></td>
+          <td><%= gehege.bezeichnung %></td>
+          <td><%= gehege.gefahrenklasse %></td>
+          <td>
+            <form action="/gehege/delete/<%= gehege.gehege_nr %>" method="POST">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </table>
+  </div>
+  <button id="d"><a href="/gehege/add">Add gehege</a></button>
+  <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+  <canvas id="gehegeChart" width="30%" height="20%"></canvas>
 </div>
-  <button id = "d"><a href="/gehege/add">Add gehege</a> </button></body></br>
-  
+  </style>
+  <script>
+    // Retrieve gehege data from the server-side variable
+    const gehegeData = <%- JSON.stringify(gehegeData) %>;
+
+    console.log(gehegeData);
+    // Extract the required data for the chart (e.g., gehege names and sizes)
+    const gehegeNames = gehegeData.map(row => row.gehege_name);
+    const gehegeSizes = gehegeData.map(row => row.kapazität);
+
+    // Create a new Chart.js chart
+    const ctx = document.getElementById('gehegeChart').getContext('2d');
+    const chartConfig = {
+      type: 'bar',
+      data: {
+        labels: gehegeNames,
+        datasets: [{
+          label: 'Größe',
+          data: gehegeSizes,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 0.5)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+    var myChart = new Chart(ctx, chartConfig);
+  </script>
 </body>
 </html>
+
